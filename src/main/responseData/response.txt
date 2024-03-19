@@ -1,0 +1,55 @@
+<200 OK OK,{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "TITLEOFTHISCODE=Oracle JDBC Example\n\nThis code demonstrates a simple Java program that connects to an Oracle database using JDBC and executes a SQL statement to retrieve the current date from the database."
+          }
+        ],
+        "role": "model"
+      },
+      "finishReason": "STOP",
+      "index": 0,
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          "probability": "NEGLIGIBLE"
+        },
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE"
+        },
+        {
+          "category": "HARM_CATEGORY_HARASSMENT",
+          "probability": "NEGLIGIBLE"
+        },
+        {
+          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+          "probability": "NEGLIGIBLE"
+        }
+      ]
+    }
+  ],
+  "promptFeedback": {
+    "safetyRatings": [
+      {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "probability": "NEGLIGIBLE"
+      },
+      {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "probability": "NEGLIGIBLE"
+      },
+      {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "probability": "NEGLIGIBLE"
+      },
+      {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "probability": "NEGLIGIBLE"
+      }
+    ]
+  }
+}
+,[Content-Type:"application/json; charset=UTF-8", Vary:"X-Origin", "Referer", "Origin,Accept-Encoding", Date:"Fri, 01 Mar 2024 15:47:59 GMT", Server:"scaffolding on HTTPServer2", Cache-Control:"private", X-XSS-Protection:"0", X-Frame-Options:"SAMEORIGIN", X-Content-Type-Options:"nosniff", Server-Timing:"gfet4t7; dur=2630", Alt-Svc:"h3=":443"; ma=2592000,h3-29=":443"; ma=2592000", Accept-Ranges:"none", Transfer-Encoding:"chunked"]>
