@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("v1/api/snippet")
-public class SnippetController {
+public class SnippetController extends BaseController {
 
     private final SnippetService snippetService;
 
@@ -24,7 +24,7 @@ public class SnippetController {
         ResponseEntity<SnippetResponseDTO> responseEntity = null;
         try {
             SnippetResponseDTO details = snippetService.saveSnippet(snippetResponseDTO);
-            responseEntity = new ResponseEntity<>(details, HttpStatus.OK);
+            responseEntity = buildOk(details);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(new SnippetResponseDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -37,20 +37,21 @@ public class SnippetController {
 
         try {
             List<SnippetResponseDTO> snippets = snippetService.getSnippets(userId);
-            response = new ResponseEntity<>(snippets, HttpStatus.OK);
-        }catch (Exception e) {
+            response = buildOk(snippets);
+        } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;
     }
 
-    @GetMapping("getSnippetsByType/{type}")
-    public ResponseEntity<List<SnippetResponseDTO>> getSnippetsByType(@PathVariable("type") String type) {
+    @GetMapping("getSnippetsByType")
+    public ResponseEntity<List<SnippetResponseDTO>> getSnippetsByType(@RequestParam("type") String type,
+                                                                      @RequestParam("userId") String userId) {
         ResponseEntity<List<SnippetResponseDTO>> response = null;
 
         try {
-            List<SnippetResponseDTO> snippets = snippetService.getSnippetsByType(type);
-            response = new ResponseEntity<>(snippets, HttpStatus.OK);
+            List<SnippetResponseDTO> snippets = snippetService.getSnippetsByType(type, userId);
+            response = buildOk(snippets);
         } catch (Exception e) {
             response = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -63,10 +64,23 @@ public class SnippetController {
 
         try {
             String status = snippetService.deleteSnippetById(id);
-            response = new ResponseEntity<>(status,HttpStatus.OK);
+            response = buildOk(status);
         } catch (Exception e) {
             response = new ResponseEntity<>("FAILED", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;
+    }
+
+    @PostMapping("editSnippet")
+    public ResponseEntity<SnippetResponseDTO> editSnippet(@RequestBody SnippetResponseDTO editedSnippet) {
+        ResponseEntity<SnippetResponseDTO> responseEntity;
+
+        try {
+            SnippetResponseDTO snippet = snippetService.editSnippet(editedSnippet);
+            responseEntity = buildOk(snippet);
+        } catch (Exception e) {
+            responseEntity = buildError(e);
+        }
+        return responseEntity;
     }
 }
