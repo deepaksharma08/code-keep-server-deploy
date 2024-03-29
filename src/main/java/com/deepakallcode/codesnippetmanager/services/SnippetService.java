@@ -93,11 +93,11 @@ public class SnippetService {
         return snippets;
     }
 
-    public List<SnippetResponseDTO> getSnippetsByType(String type) throws Exception {
+    public List<SnippetResponseDTO> getSnippetsByType(String type, String userId) throws Exception {
         List<SnippetResponseDTO> snippets = null;
         List<Snippet> snippetList = null;
 
-        snippetList = snippetRepository.findByType(type);
+        snippetList = snippetRepository.findByType(type, Long.valueOf(userId));
         if (snippetList != null) {
             snippets = mapToSnippetDTO(snippetList);
         }
@@ -123,6 +123,25 @@ public class SnippetService {
         return snippetResponseDTO;
     }
 
+    public String deleteSnippetById(String id) throws Exception {
+        snippetRepository.deleteById(Long.parseLong(id));
+        return "SUCCESS";
+    }
+
+    public SnippetResponseDTO editSnippet(SnippetResponseDTO editedSnippet) throws Exception {
+        snippetRepository.deleteById(Long.valueOf(editedSnippet.getId()));
+
+        Snippet snippetToSave = new Snippet();
+        snippetToSave.setCode(editedSnippet.getCode());
+        snippetToSave.setUserId(Long.valueOf(editedSnippet.getUserId()));
+        snippetToSave.setType(editedSnippet.getType());
+        snippetToSave.setDescription(editedSnippet.getDescription());
+        snippetToSave.setTitle(editedSnippet.getTitle());
+        snippetRepository.save(snippetToSave);
+
+        return editedSnippet;
+    }
+
     private List<SnippetResponseDTO> mapToSnippetDTO(List<Snippet> snippets) {
         List<SnippetResponseDTO> snippetResponseDTOS = new ArrayList<>();
 
@@ -141,8 +160,5 @@ public class SnippetService {
         return snippetResponseDTOS;
     }
 
-    public String deleteSnippetById(String id) throws Exception {
-        snippetRepository.deleteById(Long.parseLong(id));
-        return "SUCCESS";
-    }
+
 }

@@ -12,7 +12,7 @@ public interface SnippetRepository extends JpaRepository<Snippet, Long> {
     @Query("SELECT s FROM Snippet s WHERE s.userId = :userId")
     List<Snippet> findSnippetsByUserId(@Param("userId") Long userId);
 
-
-    List<Snippet> findByType(String type);
+    @Query("SELECT s FROM Snippet s WHERE s.userId = :userId and s.type = :type")
+    List<Snippet> findByType(@Param("type") String type, @Param("userId") Long userId);
 
 }
